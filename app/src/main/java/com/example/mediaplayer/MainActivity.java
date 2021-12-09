@@ -109,4 +109,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnPause.setEnabled(pauseEnabled);
         mBtnEnd.setEnabled(endEnabled);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPlayer != null) {
+            if (mPlayer.isPlaying()) {
+                Log.d(TAG, "正在播放，停止");
+                mPlayer.stop();
+            }
+            mPlayer.release();
+            Log.d(TAG, "释放资源");
+        }
+    }
 }
